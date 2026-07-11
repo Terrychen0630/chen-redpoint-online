@@ -21,7 +21,6 @@ export default function CreateRoomPage() {
     return (
       <main className="min-h-screen bg-green-800 flex items-center justify-center">
         <div className="w-96 rounded-2xl bg-green-700 p-8 text-center shadow-xl">
-
           <h1 className="mb-6 text-3xl font-bold text-white">
             🃏 房間建立成功
           </h1>
@@ -37,7 +36,6 @@ export default function CreateRoomPage() {
           <p className="mt-6 text-gray-200">
             等待其他玩家加入...
           </p>
-
         </div>
       </main>
     );
@@ -46,7 +44,6 @@ export default function CreateRoomPage() {
   return (
     <main className="min-h-screen bg-green-800 flex items-center justify-center">
       <div className="w-96 rounded-2xl bg-green-700 p-8 text-center shadow-xl">
-
         <h1 className="mb-6 text-3xl font-bold text-white">
           🏠 建立房間
         </h1>
@@ -65,7 +62,6 @@ export default function CreateRoomPage() {
         >
           建立房間
         </button>
-
       </div>
     </main>
   );

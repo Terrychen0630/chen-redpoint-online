@@ -24,6 +24,13 @@ export default function HomePage() {
           建立房間
         </button>
 
+        <button
+          onClick={() => router.push("/join")}
+          className="mt-4 w-full rounded-lg bg-blue-600 py-3 text-xl font-bold text-white hover:bg-blue-700"
+        >
+          加入房間
+        </button>
+
       </div>
     </main>
   );
