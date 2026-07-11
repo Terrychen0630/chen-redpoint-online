@@ -1,4 +1,11 @@
-import { collection, doc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
 import { db } from "@/firebase/config";
 
 function generateRoomCode() {
@@ -23,4 +30,25 @@ export async function createRoom(playerName: string) {
   });
 
   return roomCode;
+}
+
+export async function joinRoom(
+  roomCode: string,
+  playerName: string
+) {
+  const roomRef = doc(db, "rooms", roomCode);
+
+  const roomSnap = await getDoc(roomRef);
+
+  if (!roomSnap.exists()) {
+    throw new Error("房間不存在");
+  }
+
+  await updateDoc(roomRef, {
+    players: arrayUnion({
+      seat: 0,
+      name: playerName,
+      score: 0,
+    }),
+  });
 }
