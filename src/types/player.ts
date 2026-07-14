@@ -5,6 +5,8 @@ export interface Player {
 
   name: string;
 
+  seat: number;
+
   connected: boolean;
 
   ready: boolean;

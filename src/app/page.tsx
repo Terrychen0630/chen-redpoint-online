@@ -1,36 +1,39 @@
-'use client';
+"use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function HomePage() {
-  const router = useRouter();
-
   return (
-    <main className="min-h-screen bg-green-800 flex items-center justify-center">
-      <div className="w-96 rounded-2xl bg-green-700 p-8 text-center shadow-xl">
+    <main className="min-h-screen bg-green-900 flex flex-col items-center justify-center text-white">
+      <h1 className="text-5xl font-bold mb-4">
+        🃏 檢紅點 Online
+      </h1>
 
-        <h1 className="mb-3 text-4xl font-bold text-white">
-          🃏 檢紅點 Online
-        </h1>
+      <p className="text-xl mb-10">
+        Chen Family Rules v1.0
+      </p>
 
-        <p className="mb-8 text-yellow-300">
-          Chen Family Rules v1.0
-        </p>
-
-        <button
-          onClick={() => router.push("/create")}
-          className="w-full rounded-lg bg-red-600 py-3 text-xl font-bold text-white hover:bg-red-700"
+      <div className="flex flex-col gap-4 w-72">
+        <Link
+          href="/create"
+          className="bg-blue-600 hover:bg-blue-700 rounded-lg py-4 text-center text-xl font-bold"
         >
           建立房間
-        </button>
+        </Link>
 
-        <button
-          onClick={() => router.push("/join")}
-          className="mt-4 w-full rounded-lg bg-blue-600 py-3 text-xl font-bold text-white hover:bg-blue-700"
+        <Link
+          href="/join"
+          className="bg-green-600 hover:bg-green-700 rounded-lg py-4 text-center text-xl font-bold"
         >
           加入房間
-        </button>
+        </Link>
 
+        <Link
+          href="/test-deal"
+          className="bg-yellow-600 hover:bg-yellow-700 rounded-lg py-4 text-center text-xl font-bold"
+        >
+          🧪 Deal Engine Test
+        </Link>
       </div>
     </main>
   );

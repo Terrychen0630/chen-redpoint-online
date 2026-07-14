@@ -1,9 +1,58 @@
 import { Room } from "@/types/room";
+import { Player } from "@/types/player";
 
 export function createEmptyRoom(
   roomCode: string,
   hostName: string
 ): Room {
+
+  const players: Player[] = [
+    {
+      id: crypto.randomUUID(),
+      name: hostName,
+      seat: 1,
+      connected: true,
+      ready: false,
+      isHost: true,
+      score: 0,
+      hand: [],
+      capturedCards: [],
+    },
+    {
+      id: "",
+      name: "",
+      seat: 2,
+      connected: false,
+      ready: false,
+      isHost: false,
+      score: 0,
+      hand: [],
+      capturedCards: [],
+    },
+    {
+      id: "",
+      name: "",
+      seat: 3,
+      connected: false,
+      ready: false,
+      isHost: false,
+      score: 0,
+      hand: [],
+      capturedCards: [],
+    },
+    {
+      id: "",
+      name: "",
+      seat: 4,
+      connected: false,
+      ready: false,
+      isHost: false,
+      score: 0,
+      hand: [],
+      capturedCards: [],
+    },
+  ];
+
   return {
     roomCode,
 
@@ -19,51 +68,7 @@ export function createEmptyRoom(
 
     winner: null,
 
-    players: {
-      seat1: {
-        id: crypto.randomUUID(),
-        name: hostName,
-        connected: true,
-        ready: false,
-        isHost: true,
-        score: 0,
-        hand: [],
-        matchedCards: [],
-      },
-
-      seat2: {
-        id: "",
-        name: "",
-        connected: false,
-        ready: false,
-        isHost: false,
-        score: 0,
-        hand: [],
-        matchedCards: [],
-      },
-
-      seat3: {
-        id: "",
-        name: "",
-        connected: false,
-        ready: false,
-        isHost: false,
-        score: 0,
-        hand: [],
-        matchedCards: [],
-      },
-
-      seat4: {
-        id: "",
-        name: "",
-        connected: false,
-        ready: false,
-        isHost: false,
-        score: 0,
-        hand: [],
-        matchedCards: [],
-      },
-    },
+    players,
 
     deck: [],
 

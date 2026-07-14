@@ -1,4 +1,4 @@
-import { Players } from "./players";
+import { Player } from "./player";
 import { Card } from "./card";
 
 export interface Room {
@@ -16,7 +16,7 @@ export interface Room {
 
   winner: number | null;
 
-  players: Players;
+  players: Player[];
 
   deck: Card[];
 
