@@ -70,13 +70,13 @@ function handleSeaCardClick(seaCard: Card) {
 
         {room.players.map((player) => (
 
-          <PlayerHand
-            key={player.seat}
-            title={`Player ${player.seat}`}
-            cards={player.hand}
-            selectedCard={selectedCard}
-            onSelect={setSelectedCard}
-          />
+<PlayerHand
+  title={`Player ${player.seat}`}
+  cards={player.hand}
+  capturedCards={player.capturedCards}
+  selectedCard={selectedCard}
+  onSelect={setSelectedCard}
+/>
 
         ))}
 
