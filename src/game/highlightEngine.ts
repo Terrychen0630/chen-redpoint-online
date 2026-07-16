@@ -1,5 +1,5 @@
 import { Card } from "@/types/card";
-import { findMatches } from "./matchEngine";
+import { findPlayableSeaCards } from "./matchEngine";
 
 export interface HighlightCard {
   card: Card;
@@ -11,16 +11,14 @@ export function findSelectableMatches(
   seaCards: Card[]
 ): HighlightCard[] {
 
-  const matches = findMatches(handCard, seaCards);
-
-  const hasRed = matches.some(
-    (card) => card.suit === "heart" || card.suit === "diamond"
+  const matches = findPlayableSeaCards(
+    handCard,
+    seaCards
   );
 
   return matches.map((card) => ({
     card,
-    priority:
-      hasRed &&
-      (card.suit === "heart" || card.suit === "diamond"),
+    priority: true,
   }));
+
 }

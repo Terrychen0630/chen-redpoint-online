@@ -1,28 +1,76 @@
 "use client";
 
-import { createEmptyRoom } from "@/game/roomFactory";
+import { createTestRoom } from "@/game/testRoomFactory";
 import { startGame } from "@/game/gameManager";
 
 export default function TestGameStartPage() {
-  const room = createEmptyRoom("123456", "聖文");
+
+ const room = createTestRoom();
 
   const startedRoom = startGame(room);
 
   return (
-    <main className="p-8">
-      <h1 className="text-3xl font-bold">
-        Game Start Test
+    <main className="min-h-screen bg-green-900 p-8 text-white">
+
+      <h1 className="text-4xl font-bold mb-8">
+        🧪 Game Start Engine Test
       </h1>
 
-      <div className="mt-6 space-y-2">
-        <p>房號：{startedRoom.roomCode}</p>
+      <p>
+        Room：
+        {startedRoom.roomCode}
+      </p>
 
-        <p>狀態：{startedRoom.status}</p>
+      <p>
+        Status：
+        {startedRoom.status}
+      </p>
 
-        <p>玩家數：{startedRoom.players.length}</p>
+      <p>
+        Sea Cards：
+        {startedRoom.seaCards.length}
+      </p>
 
-        <p>目前回合：{startedRoom.currentTurn}</p>
-      </div>
+      <p>
+        Remaining Deck：
+        {startedRoom.deck.length}
+      </p>
+
+      <hr className="my-8" />
+
+      {startedRoom.players.map((player) => (
+
+        <div
+          key={player.seat}
+          className="mb-6 rounded bg-gray-800 p-4"
+        >
+
+          <h2 className="text-xl font-bold">
+
+            Seat {player.seat}
+
+          </h2>
+
+          <p>
+
+            {player.name || "(空位)"}
+
+          </p>
+
+          <p>
+
+            手牌：
+
+            {player.hand.length}
+
+            張
+
+          </p>
+
+        </div>
+
+      ))}
+
     </main>
   );
 }

@@ -32,3 +32,30 @@ export function findMatches(
 ): Card[] {
   return seaCards.filter((card) => canMatch(handCard, card));
 }
+/**
+ * 套用陳家規則：
+ * 有紅必吃紅
+ */
+export function findPlayableSeaCards(
+  handCard: Card,
+  seaCards: Card[]
+): Card[] {
+
+  const matches = findMatches(
+    handCard,
+    seaCards
+  );
+
+  const redCards = matches.filter(
+    (card) =>
+      card.suit === "heart" ||
+      card.suit === "diamond"
+  );
+
+  if (redCards.length > 0) {
+    return redCards;
+  }
+
+  return matches;
+
+}
