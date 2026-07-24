@@ -5,8 +5,8 @@ import { shuffleDeck } from "@/game/shuffle";
 import { dealCards } from "@/game/deck/dealEngine";
 import { checkRedeal } from "@/game/rules/redealEngine";
 
-export function startGame(room: Room): Room {
-
+export function startGameEngine(room: Room): Room {
+ 
   // 1. 建立牌組
   const deck = createDeck();
 
@@ -41,7 +41,6 @@ export function startGame(room: Room): Room {
 
   if (redeal.canRedeal) {
 
-    console.log("Redeal:", redeal.reason);
 
     // 下一版改成真正重新洗牌
   }

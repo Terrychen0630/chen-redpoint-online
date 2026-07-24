@@ -6,6 +6,8 @@ interface PlayerHandProps {
   capturedCards: Card[];
   selectedCard: Card | null;
   onSelect: (card: Card) => void;
+
+  isCurrentTurn: boolean;
 }
 
 export default function PlayerHand({
@@ -14,9 +16,16 @@ export default function PlayerHand({
   capturedCards,
   selectedCard,
   onSelect,
+  isCurrentTurn,
 }: PlayerHandProps) {
   return (
-    <div className="rounded bg-green-800 p-4">
+    <div
+  className={`rounded p-4 ${
+    isCurrentTurn
+      ? "bg-green-700 ring-4 ring-yellow-400"
+      : "bg-green-900 opacity-60"
+  }`}
+>
 
       <h3 className="mb-3 text-xl font-bold">
         {title}
@@ -31,19 +40,27 @@ export default function PlayerHand({
         {cards.map((card, index) => (
 
           <button
+  disabled={!isCurrentTurn}
             key={index}
             onClick={() => onSelect(card)}
-            className={`
-              rounded
-              px-3
-              py-2
-              text-black
-              ${
-                selectedCard === card
-                  ? "bg-blue-300"
-                  : "bg-white"
-              }
-            `}
+className={`
+  rounded
+  px-3
+  py-2
+  text-black
+
+  ${
+    selectedCard === card
+      ? "bg-blue-300"
+      : "bg-white"
+  }
+
+  ${
+    !isCurrentTurn
+      ? "cursor-not-allowed opacity-50"
+      : "hover:bg-yellow-200"
+  }
+`}
           >
             {card.suit} {card.rank}
           </button>

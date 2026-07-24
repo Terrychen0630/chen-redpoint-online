@@ -22,3 +22,14 @@ export function findSelectableMatches(
   }));
 
 }
+// ⭐ 新增這個 Function
+export function toHighlightCards(
+  cards: Card[]
+): HighlightCard[] {
+
+  return cards.map((card) => ({
+    card,
+    priority: true,
+  }));
+
+}

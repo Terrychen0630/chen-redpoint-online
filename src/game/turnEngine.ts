@@ -1,18 +1,44 @@
 import { Room } from "@/types/room";
 
+/**
+ * 下一位玩家座位
+ */
+export function getNextPlayerSeat(
+  room: Room
+): number {
+
+  return (
+    room.currentTurn %
+    room.players.length
+  ) + 1;
+
+}
+
+/**
+ * 是否最後一位玩家
+ */
+export function isLastPlayer(
+  room: Room
+): boolean {
+
+  return (
+    room.currentTurn === room.players.length
+  );
+
+}
+
+/**
+ * 換下一位玩家
+ */
 export function nextTurn(
   room: Room
 ): Room {
 
-  let nextSeat = room.currentTurn + 1;
+  const updated = structuredClone(room);
 
-  if (nextSeat > 4) {
-    nextSeat = 1;
-  }
+  updated.currentTurn =
+    getNextPlayerSeat(updated);
 
-  return {
-    ...room,
-    currentTurn: nextSeat,
-  };
+  return updated;
 
 }

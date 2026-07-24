@@ -11,6 +11,9 @@ export interface PlayTurnResult {
   room: Room;
   flippedCard: Card | null;
   chainCards: Card[];
+
+  // 是否必須繼續連吃
+  mustContinue: boolean;
 }
 
 export function playTurn(
@@ -36,21 +39,44 @@ export function playTurn(
   // 翻牌
   const flipResult = flipCard(capturedRoom);
 
-  // 判斷是否可以連吃
-  const chainCards =
-    flipResult.flippedCard === null
-      ? []
-      : findChainMatches(
-          flipResult.flippedCard,
-          flipResult.room.seaCards
-        );
+ // 判斷是否可以連吃
+const chainCards =
+  flipResult.flippedCard === null
+    ? []
+    : findChainMatches(
+        flipResult.flippedCard,
+        flipResult.room.seaCards
+      );
 
-  // 換下一位
-  const nextRoom = nextTurn(flipResult.room);
+// 先預設為翻牌後的房間
+let roomAfterChain = flipResult.room;
 
-  return {
-    room: nextRoom,
-    flippedCard: flipResult.flippedCard,
-    chainCards,
-  };
+// 若翻牌可以連吃，自動完成第一次連吃
+if (
+  flipResult.flippedCard &&
+  chainCards.length > 0
+) {
+  roomAfterChain = captureCards(
+    flipResult.room,
+    playerSeat,
+    flipResult.flippedCard,
+    chainCards[0],
+    {
+      removeFromHand: false,
+    }
+  );
+}
+
+// 是否還需要玩家繼續操作
+const mustContinue = false;
+
+// 完成連吃後直接換下一位
+const nextRoom = nextTurn(roomAfterChain);
+
+return {
+  room: nextRoom,
+  flippedCard: flipResult.flippedCard,
+  chainCards: [],
+  mustContinue,
+};
 }

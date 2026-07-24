@@ -1,4 +1,5 @@
 import { Card } from "@/types/card";
+import { isRed } from "@/game/utils/cardUtils";
 
 const MATCH_RULES: Record<Card["rank"], Card["rank"][]> = {
   A: ["9"],
@@ -16,46 +17,42 @@ const MATCH_RULES: Record<Card["rank"], Card["rank"][]> = {
   K: ["K"],
 };
 
-/**
- * 判斷兩張牌是否可以配對
- */
 export function canMatch(cardA: Card, cardB: Card): boolean {
   return MATCH_RULES[cardA.rank].includes(cardB.rank);
 }
 
-/**
- * 找出海底所有可配對的牌
- */
 export function findMatches(
   handCard: Card,
   seaCards: Card[]
 ): Card[] {
   return seaCards.filter((card) => canMatch(handCard, card));
 }
-/**
- * 套用陳家規則：
- * 有紅必吃紅
- */
+
 export function findPlayableSeaCards(
   handCard: Card,
   seaCards: Card[]
 ): Card[] {
+
+  // 紅9只能配A
+  if (
+    handCard.rank === "9" &&
+    isRed(handCard)
+  ) {
+    return seaCards.filter(
+      (card) => card.rank === "A"
+    );
+  }
 
   const matches = findMatches(
     handCard,
     seaCards
   );
 
-  const redCards = matches.filter(
-    (card) =>
-      card.suit === "heart" ||
-      card.suit === "diamond"
-  );
+  const redCards = matches.filter(isRed);
 
   if (redCards.length > 0) {
     return redCards;
   }
 
   return matches;
-
 }
