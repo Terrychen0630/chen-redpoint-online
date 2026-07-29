@@ -6,7 +6,7 @@ import { Card } from "@/types/card";
 
 import { createTestRoom } from "@/game/testRoomFactory";
 import { startGame } from "@/game/gameManager";
-import { playTurn } from "@/game/playTurn";
+import { playTurn } from "@/game/engines/playTurn";
 import { nextTurn } from "@/game/turnEngine";
 import { applyDebugScenario } from "@/debug/debugEngine";
 import {

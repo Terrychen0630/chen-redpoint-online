@@ -1,7 +1,7 @@
 import { Room } from "@/types/room";
 import { Card } from "@/types/card";
 
-import { playTurn } from "./playTurn";
+import { playTurn } from "./engines/playTurn";
 import { discardTurn } from "./discardTurnEngine";
 
 import { Seat } from "@/game/types/seat";

@@ -3,7 +3,7 @@ import { Card } from "@/types/card";
 
 import { Seat } from "@/game/types/seat";
 
-import { playTurn } from "./playTurn";
+import { playTurn } from "./engines/playTurn";
 import { discardTurn } from "./discardTurnEngine";
 
 export function executePlayerAction(
