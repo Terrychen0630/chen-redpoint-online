@@ -3,7 +3,7 @@ import { Card } from "@/types/card";
 
 import { Seat } from "@/game/types/seat";
 
-import { discardCard } from "./discardEngine";
+import { discardCard } from "./engines/discardEngine";
 import { flipDeckCard } from "./deck/flipDeckCard";
 import { resolveFlip } from "./resolveFlip";
 import { getNextSeat } from "./utils/getNextSeat";

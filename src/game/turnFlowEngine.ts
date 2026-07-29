@@ -2,7 +2,7 @@ import { Room } from "@/types/room";
 import { Card } from "@/types/card";
 
 import { findPlayableSeaCards } from "./matchEngine";
-import { discardCard } from "./discardEngine";
+import { discardCard } from "./engines/discardEngine";
 import { playTurn } from "./engines/playTurn";
 
 export interface TurnFlowResult {
