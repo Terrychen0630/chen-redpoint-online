@@ -5,7 +5,7 @@ import { Seat } from "@/game/types/seat";
 
 import { executePlayerAction } from "./actionEngine";
 import { flipCapture } from "./flipCaptureEngine";
-import { nextTurn } from "./turnEngine";
+import { nextTurn } from "./engines/turnEngine";
 
 export interface RoundResult {
   room: Room;

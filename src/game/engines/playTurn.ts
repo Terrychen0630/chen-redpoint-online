@@ -9,7 +9,7 @@ import { canMatch } from "./matchEngine";
 import { captureCards } from "./captureEngine";
 import { flipCard } from "./flipEngine";
 import { findChainMatches } from "../chainEngine";
-import { nextTurn } from "../turnEngine";
+import { nextTurn } from "./turnEngine";
 import { continueGame } from "../gameFlowEngine";
 
 export function playTurn(

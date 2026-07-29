@@ -1,6 +1,6 @@
 "use client";
 
-import { nextTurn } from "@/game/turnEngine";
+import { nextTurn } from "@/game/engines/turnEngine";
 import { Room } from "@/types/room";
 import { Card } from "@/types/card";
 import { Player } from "@/types/player";
