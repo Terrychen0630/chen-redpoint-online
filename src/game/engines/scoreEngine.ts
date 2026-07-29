@@ -1,6 +1,6 @@
 import { Card } from "@/types/card";
 import { Player } from "@/types/player";
-import { calculateBonus } from "./bonusEngine";
+import { calculateBonus } from "../bonusEngine";
 
 export interface ScoreResult {
   baseScore: number;

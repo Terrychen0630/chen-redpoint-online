@@ -1,4 +1,4 @@
-import { ScoreResult } from "@/game/scoreEngine";
+import { ScoreResult } from "@/game/engines/scoreEngine";
 
 interface ScorePanelProps {
   playerName: string;

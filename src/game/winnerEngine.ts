@@ -2,7 +2,7 @@ import { Player } from "@/types/player";
 import {
   calculatePlayerScore,
   ScoreResult,
-} from "./scoreEngine";
+} from "./engines/scoreEngine";
 
 export interface WinnerResult {
 

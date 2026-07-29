@@ -1,7 +1,7 @@
 "use client";
 
 import { createCard } from "@/game/cardFactory";
-import { calculateBaseScore } from "@/game/scoreEngine";
+import { calculateBaseScore } from "@/game/engines/scoreEngine";
 import { Card } from "@/types/card";
 
 const cards: Card[] = [

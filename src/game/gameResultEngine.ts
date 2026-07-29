@@ -1,5 +1,5 @@
 import { Player } from "@/types/player";
-import { ScoreResult } from "./scoreEngine";
+import { ScoreResult } from "./engines/scoreEngine";
 
 export interface GameResult {
 
