@@ -1,26 +1,25 @@
 import { Room } from "@/types/room";
 
-import { createDeck } from "@/game/deckFactory";
-import { shuffleDeck } from "@/game/shuffle";
 import { dealCards } from "@/game/deck/dealEngine";
 import { checkRedeal } from "@/game/rules/redealEngine";
+import { buildDeck } from "@/game/deckEngine";
 
-export function startGameEngine(room: Room): Room {
- 
-  // 1. 建立牌組
-  const deck = createDeck();
+export function startGameEngine(
+  room: Room
+): Room {
 
-  // 2. 洗牌
-  const shuffledDeck = shuffleDeck(deck);
+  // 1. 建立並洗牌
+  const deck = buildDeck();
 
-  // 3. 發牌
+  // 2. 發牌
   const dealResult = dealCards(
-    shuffledDeck,
+    deck,
     room.players
   );
 
-  // 4. 建立新的 Room
-  const updatedRoom: Room = {
+  // 3. 建立遊戲中的 Room
+  const playingRoom: Room = {
+
     ...room,
 
     status: "playing",
@@ -30,21 +29,24 @@ export function startGameEngine(room: Room): Room {
     seaCards: dealResult.seaCards,
 
     deck: dealResult.remainingDeck,
+
   };
 
-  // 5. 檢查是否需要重發
+  // 4. 檢查是否需要重發
   const redeal = checkRedeal(
-    updatedRoom.players,
-    updatedRoom.seaCards,
-    updatedRoom.bottomCard
+    playingRoom
   );
 
+  // 5. 需要重發則重新開始
   if (redeal.canRedeal) {
 
+    console.log("重新發牌：", redeal.reason);
 
-    // 下一版改成真正重新洗牌
+    return startGameEngine(room);
+
   }
 
-  return updatedRoom;
+  // 6. 發牌完成
+  return playingRoom;
 
 }

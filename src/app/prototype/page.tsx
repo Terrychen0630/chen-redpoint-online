@@ -21,20 +21,32 @@ import { discardTurn } from "@/game/discardTurnEngine";
 import ScorePanel from "@/components/ScorePanel";
 import { ScoreResult, calculatePlayerScore } from "@/game/scoreEngine";
 import { confirmChainCapture } from "@/game/chainCaptureEngine";
+import { isGameOver } from "@/game/gameOverEngine";
+import { CRPEController } from "@/game/controller/CRPEController";
 
 export default function PrototypePage() {
 
 
- const DEBUG_MODE : number = 5; // 0 = 關閉 Debug
+ enum DebugMode {
+  FULL_GAME = 0,
+  FLIP = 1,
+  RED_PRIORITY = 2,
+  A_NINE = 3,
+  CHAIN = 5,
+}
+
+const DEBUG_MODE = DebugMode.FULL_GAME;
 
   const [room, setRoom] = useState(() => {
   console.log("PAGE DEBUG_MODE =", DEBUG_MODE);
 
-  let gameRoom = startGame(createTestRoom());
+let gameRoom = startGame(createTestRoom());
 
+if (DEBUG_MODE !== DebugMode.FULL_GAME) {
   gameRoom = applyDebugScenario(gameRoom, DEBUG_MODE);
+}
 
-  return gameRoom;
+return gameRoom;
 });
 
   const [selectedCard, setSelectedCard] =
@@ -45,6 +57,8 @@ export default function PrototypePage() {
 
     const [scoreResult, setScoreResult] =
   useState<ScoreResult | null>(null);
+
+  const [gameFinished, setGameFinished] = useState(false);
 
   if (!room) {
     return (
@@ -121,47 +135,64 @@ if (waitingChain) {
   // =============================
   // 第一階段：正常出牌
   // =============================
-  try {
+try {
 
-    const result = playTurn(
-      room,
-      room.currentTurn,
-      selectedCard,
-      seaCard
+  const controller = new CRPEController(room);
+
+  const result = controller.play(
+    selectedCard,
+    seaCard
+  );
+
+  setRoom(controller.getRoom());
+
+  if (isGameOver(controller.getRoom())) {
+    setGameFinished(true);
+    return;
+  }
+
+  if (result.data?.mustContinue) {
+
+    setSelectableCards(
+      toHighlightCards(result.data.chainCards)
     );
 
-    setRoom(result.room);
+  } else {
 
-    if (result.mustContinue) {
-
-      console.log("🔄 等待玩家確認連吃");
-
-      setSelectedCard(result.flippedCard);
-
-      setSelectableCards(
-        toHighlightCards(result.chainCards)
-      );
-
-    } else {
-
-      setSelectedCard(null);
-      setSelectableCards([]);
-
-    }
-
-  } catch {
-
-    alert("不能配牌");
+    setSelectedCard(null);
+    setSelectableCards([]);
 
   }
 
+} catch {
+
+  alert("不能配牌");
+
 }
 
+}
+const testPlayer = room.players[0];
   return (
 
     <main className="min-h-screen bg-green-900 p-8 text-white">
 
       <h1 className="mb-8 text-4xl font-bold">
+
+      {gameFinished && (
+  <div
+    style={{
+      background: "#22c55e",
+      color: "white",
+      padding: "12px",
+      borderRadius: "8px",
+      marginBottom: "12px",
+      textAlign: "center",
+      fontWeight: "bold",
+    }}
+  >
+    🎉 遊戲結束
+  </div>
+)}
         🃏 Chen Red Point Prototype
       </h1>
 

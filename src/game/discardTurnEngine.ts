@@ -1,13 +1,16 @@
 import { Room } from "@/types/room";
 import { Card } from "@/types/card";
 
+import { Seat } from "@/game/types/seat";
+
 import { discardCard } from "./discardEngine";
 import { flipDeckCard } from "./deck/flipDeckCard";
 import { resolveFlip } from "./resolveFlip";
+import { getNextSeat } from "./utils/getNextSeat";
 
 export function discardTurn(
   room: Room,
-  playerSeat: number,
+  playerSeat: Seat,
   card: Card
 ): Room {
 
@@ -35,10 +38,6 @@ export function discardTurn(
   // 4. 換下一位
   return {
     ...updatedRoom,
-
-    currentTurn:
-      playerSeat === 4
-        ? 1
-        : playerSeat + 1,
+    currentTurn: getNextSeat(playerSeat),
   };
 }

@@ -1,6 +1,9 @@
 import { Room } from "@/types/room";
+import { createCard } from "@/game/cardFactory";
 
 export function applyRedPriorityScenario(room: Room): Room {
+  console.log("✅ Red Priority Scenario 執行了");
+
   const updated = structuredClone(room);
 
   updated.players.forEach(player => {
@@ -9,21 +12,12 @@ export function applyRedPriorityScenario(room: Room): Room {
   });
 
   updated.players[0].hand = [
-    {
-      suit: "diamond",
-      rank: "4",
-    },
+    createCard("diamond", "4"),
   ];
 
   updated.seaCards = [
-    {
-      suit: "heart",
-      rank: "6",
-    },
-    {
-      suit: "club",
-      rank: "6",
-    },
+    createCard("heart", "6"),
+    createCard("club", "6"),
   ];
 
   updated.currentTurn = 1;

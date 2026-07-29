@@ -1,43 +1,34 @@
 import { Room } from "@/types/room";
 import { Card } from "@/types/card";
 
+import { Seat } from "@/game/types/seat";
+
 import { playTurn } from "./playTurn";
 import { discardTurn } from "./discardTurnEngine";
 
-export interface GameActionResult {
-  room: Room;
-}
-
 export function executePlayerAction(
   room: Room,
-  playerSeat: number,
+  playerSeat: Seat,
   handCard: Card,
   seaCard?: Card
-): GameActionResult {
-
-  // 沒有配牌 → 棄牌
+) {
   if (!seaCard) {
-
     return {
       room: discardTurn(
         room,
         playerSeat,
         handCard
       ),
+      flippedCard: null,
+      chainCards: [],
+      mustContinue: false,
     };
-
   }
 
-  // 有配牌 → 吃牌
-  const result = playTurn(
+  return playTurn(
     room,
     playerSeat,
     handCard,
     seaCard
   );
-
-  return {
-    room: result.room,
-  };
-
 }

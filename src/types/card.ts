@@ -20,6 +20,7 @@ export type Rank =
   | "K";
 
 export interface Card {
-    suit: Suit;
-    rank: Rank;
+  id: string;
+  suit: Suit;
+  rank: Rank;
 }

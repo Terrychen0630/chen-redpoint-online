@@ -4,45 +4,56 @@ import { HighlightCard } from "@/game/highlightEngine";
 interface SeaCardsProps {
   seaCards: Card[];
   selectableCards: HighlightCard[];
+  selectedCard?: Card | null;
   onSelect: (card: Card) => void;
 }
 
 export default function SeaCards({
   seaCards,
   selectableCards,
+  selectedCard,
   onSelect,
 }: SeaCardsProps) {
+
   return (
+
     <div>
 
-      <h2 className="mb-4 text-2xl">
+      <h2 className="mb-4 text-2xl font-bold">
         海底
       </h2>
 
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-3">
 
-        {seaCards.map((card, index) => {
+        {seaCards.map((card) => {
 
-          const selectable = selectableCards.find(
-            (item) =>
-              item.card.rank === card.rank &&
-              item.card.suit === card.suit
-          );
+          const selectable =
+            selectableCards.some(
+              (item) => item.card.id === card.id
+            );
+
+          const selected =
+            selectedCard?.id === card.id;
 
           return (
 
             <button
-              key={index}
+              key={card.id}
               onClick={() => onSelect(card)}
               className={`
-                rounded
+                rounded-lg
+                border-2
                 px-3
                 py-2
-                text-black
+                transition-all
+                duration-200
+
                 ${
-                  selectable
-                    ? "bg-red-400"
-                    : "bg-yellow-300"
+                  selected
+                    ? "border-blue-500 bg-blue-200 scale-105"
+                    : selectable
+                      ? "border-green-500 bg-green-200"
+                      : "border-gray-300 bg-yellow-100"
                 }
               `}
             >
@@ -56,5 +67,7 @@ export default function SeaCards({
       </div>
 
     </div>
+
   );
+
 }

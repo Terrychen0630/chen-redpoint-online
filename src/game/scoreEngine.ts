@@ -1,6 +1,6 @@
 import { Card } from "@/types/card";
 import { Player } from "@/types/player";
-import { hasRedFivePair } from "./specialRules";
+import { calculateBonus } from "./bonusEngine";
 
 export interface ScoreResult {
   baseScore: number;
@@ -92,34 +92,23 @@ export function calculatePlayerScore(
   player: Player
 ): ScoreResult {
 
+  // 基本分
   const baseScore =
     calculateBaseScore(
       player.capturedCards
     );
 
-  let bonusScore = 0;
+  // 特殊規則(Bonus / Penalty)
+  const bonusResult =
+    calculateBonus(player);
 
-  let penaltyScore = 0;
+  const bonusScore =
+    bonusResult.bonus;
 
-  // -----------------------------
-  // 過紅5
-  // -----------------------------
+  const penaltyScore =
+    bonusResult.penalty;
 
-  if (
-    hasRedFivePair(
-      player.capturedCards
-    )
-  ) {
-    bonusScore += 30;
-  }
-
-  // -----------------------------
-  // 未來加入：
-  // 70分門檻
-  // 包牌
-  // 其它特殊規則
-  // -----------------------------
-
+  // 最終分數
   const finalScore =
     baseScore +
     bonusScore -

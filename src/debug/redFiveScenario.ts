@@ -1,18 +1,13 @@
 import { Room } from "@/types/room";
+import { createCard } from "@/game/cardFactory";
 
 export function applyRedFiveScenario(room: Room): Room {
 
   const updated = structuredClone(room);
 
   updated.players[0].capturedCards = [
-    {
-      suit: "heart",
-      rank: "5",
-    },
-    {
-      suit: "diamond",
-      rank: "5",
-    },
+    createCard("heart", "5"),
+    createCard("diamond", "5"),
   ];
 
   return updated;

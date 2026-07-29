@@ -7,6 +7,30 @@ export interface DealResult {
   remainingDeck: Card[];
 }
 
+const SEA_CARD_COUNT = 4;
+
+function drawCard(deck: Card[]): Card {
+  const card = deck.shift();
+
+  if (!card) {
+    throw new Error("Deck is empty");
+  }
+
+  return card;
+}
+
+function dealRound(
+  players: Player[],
+  deck: Card[],
+  rounds: number
+): void {
+  for (let round = 0; round < rounds; round++) {
+    for (let seat = 0; seat < players.length; seat++) {
+      players[seat].hand.push(drawCard(deck));
+    }
+  }
+}
+
 export function dealCards(
   deck: Card[],
   players: Player[]
@@ -23,28 +47,14 @@ export function dealCards(
   const seaCards: Card[] = [];
 
   // ===== 發海底 =====
-  for (let i = 0; i < 4; i++) {
-    seaCards.push(workingDeck.shift()!);
+  for (let i = 0; i < SEA_CARD_COUNT; i++) {
+    seaCards.push(drawCard(workingDeck));
   }
 
-  // ===== 第一輪：每人 1 張 =====
-  for (let seat = 0; seat < 4; seat++) {
-    updatedPlayers[seat].hand.push(workingDeck.shift()!);
-  }
-
-  // ===== 第二輪：每人 2 張 =====
-  for (let round = 0; round < 2; round++) {
-    for (let seat = 0; seat < 4; seat++) {
-      updatedPlayers[seat].hand.push(workingDeck.shift()!);
-    }
-  }
-
-  // ===== 第三輪：每人 3 張 =====
-  for (let round = 0; round < 3; round++) {
-    for (let seat = 0; seat < 4; seat++) {
-      updatedPlayers[seat].hand.push(workingDeck.shift()!);
-    }
-  }
+  // ===== 發牌 =====
+  dealRound(updatedPlayers, workingDeck, 1);
+  dealRound(updatedPlayers, workingDeck, 2);
+  dealRound(updatedPlayers, workingDeck, 3);
 
   return {
     players: updatedPlayers,

@@ -1,12 +1,14 @@
 import { Room } from "@/types/room";
 import { Card } from "@/types/card";
 
+import { Seat } from "@/game/types/seat";
+
 import { findPlayableSeaCards } from "./matchEngine";
 import { captureCards } from "./captureEngine";
 
 export function resolveFlip(
   room: Room,
-  playerSeat: number,
+  playerSeat: Seat,
   flippedCard: Card
 ): Room {
 

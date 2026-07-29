@@ -1,10 +1,7 @@
 import { Room } from "@/types/room";
 import { Card } from "@/types/card";
 
-export interface FlipResult {
-  room: Room;
-  flippedCard: Card | null;
-}
+export interface FlipResult { room: Room; flippedCard: Card | null; }
 
 export function flipDeckCard(room: Room): FlipResult {
 

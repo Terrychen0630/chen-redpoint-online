@@ -1,13 +1,15 @@
 import { Room } from "@/types/room";
 import { Card } from "@/types/card";
 
+import { Seat } from "@/game/types/seat";
+
 interface CaptureOptions {
   removeFromHand?: boolean;
 }
 
 export function captureCards(
   room: Room,
-  playerSeat: number,
+  playerSeat: Seat,
   sourceCard: Card,
   seaCard: Card,
   options: CaptureOptions = {}
@@ -31,9 +33,7 @@ export function captureCards(
 
     return {
       ...player,
-
       hand: updatedHand,
-
       capturedCards: [
         ...player.capturedCards,
         sourceCard,
@@ -42,22 +42,20 @@ export function captureCards(
     };
   });
 
-const seaCards = room.seaCards.filter((card) => {
+  const seaCards = room.seaCards.filter((card) => {
+    // 一定要移除被吃的海底牌
+    const isSeaCard =
+      card.suit === seaCard.suit &&
+      card.rank === seaCard.rank;
 
-  // 一定要移除被吃的海底牌
-  const isSeaCard =
-    card.suit === seaCard.suit &&
-    card.rank === seaCard.rank;
+    // 翻牌連吃時，翻出的牌也在海底，要一起移除
+    const isSourceCard =
+      !removeFromHand &&
+      card.suit === sourceCard.suit &&
+      card.rank === sourceCard.rank;
 
-  // 翻牌連吃時，翻出的牌也在海底，要一起移除
-  const isSourceCard =
-    !removeFromHand &&
-    card.suit === sourceCard.suit &&
-    card.rank === sourceCard.rank;
-
-  return !(isSeaCard || isSourceCard);
-
-});
+    return !(isSeaCard || isSourceCard);
+  });
 
   return {
     ...room,

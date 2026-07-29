@@ -1,24 +1,19 @@
 "use client";
 
 import { captureCards } from "@/game/captureEngine";
+import { createCard } from "@/game/cardFactory";
+import { Seat } from "@/game/types/seat";
+
 import { Room } from "@/types/room";
 import { Player } from "@/types/player";
-import { Card } from "@/types/card";
 
-const handCard: Card = {
-  suit: "club",
-  rank: "4",
-};
-
-const seaCard: Card = {
-  suit: "heart",
-  rank: "6",
-};
+const handCard = createCard("club", "4");
+const seaCard = createCard("heart", "6");
 
 const player: Player = {
   id: "1",
   name: "聖文",
-  seat: 1,
+  seat: Seat.West,
   connected: true,
   ready: true,
   isHost: true,
@@ -30,9 +25,9 @@ const player: Player = {
 const room: Room = {
   roomCode: "123456",
   status: "playing",
-  hostSeat: 1,
-  dealerSeat: 1,
-  currentTurn: 1,
+  hostSeat: Seat.West,
+  dealerSeat: Seat.West,
+  currentTurn: Seat.West,
   createdAt: Date.now(),
   winner: null,
   players: [player],
@@ -45,20 +40,18 @@ const room: Room = {
 export default function TestCapturePage() {
   const result = captureCards(
     room,
-    1,
+    Seat.West,
     handCard,
     seaCard
   );
 
   return (
     <main className="p-8">
-
       <h1 className="text-3xl font-bold">
         Capture Engine Test
       </h1>
 
       <div className="mt-6">
-
         <p>
           手牌：
           {result.players[0].hand.length}
@@ -73,9 +66,7 @@ export default function TestCapturePage() {
           海底：
           {result.seaCards.length}
         </p>
-
       </div>
-
     </main>
   );
 }

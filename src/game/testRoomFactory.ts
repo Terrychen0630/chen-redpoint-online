@@ -1,13 +1,13 @@
 import { Room } from "@/types/room";
 import { Player } from "@/types/player";
+import { Seat } from "@/game/types/seat";
 
 export function createTestRoom(): Room {
-
   const players: Player[] = [
     {
       id: "1",
       name: "Player1",
-      seat: 1,
+      seat: Seat.West,
       connected: true,
       ready: true,
       isHost: true,
@@ -18,7 +18,7 @@ export function createTestRoom(): Room {
     {
       id: "2",
       name: "Player2",
-      seat: 2,
+      seat: Seat.North,
       connected: true,
       ready: true,
       isHost: false,
@@ -29,7 +29,7 @@ export function createTestRoom(): Room {
     {
       id: "3",
       name: "Player3",
-      seat: 3,
+      seat: Seat.East,
       connected: true,
       ready: true,
       isHost: false,
@@ -40,7 +40,7 @@ export function createTestRoom(): Room {
     {
       id: "4",
       name: "Player4",
-      seat: 4,
+      seat: Seat.South,
       connected: true,
       ready: true,
       isHost: false,
@@ -55,11 +55,11 @@ export function createTestRoom(): Room {
 
     status: "waiting",
 
-    hostSeat: 1,
+    hostSeat: Seat.West,
 
-    dealerSeat: 1,
+    dealerSeat: Seat.West,
 
-    currentTurn: 1,
+    currentTurn: Seat.West,
 
     createdAt: Date.now(),
 

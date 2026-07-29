@@ -1,9 +1,14 @@
 import { Card } from "@/types/card";
 import { findPlayableSeaCards } from "./matchEngine";
 
+export type HighlightType =
+  | "match"
+  | "selected"
+  | "bonus";
+
 export interface HighlightCard {
   card: Card;
-  priority: boolean;
+  type: HighlightType;
 }
 
 export function findSelectableMatches(
@@ -11,25 +16,24 @@ export function findSelectableMatches(
   seaCards: Card[]
 ): HighlightCard[] {
 
-  const matches = findPlayableSeaCards(
+  return findPlayableSeaCards(
     handCard,
     seaCards
-  );
-
-  return matches.map((card) => ({
+  ).map(card => ({
     card,
-    priority: true,
+    type: "match",
   }));
 
 }
-// ⭐ 新增這個 Function
+
 export function toHighlightCards(
-  cards: Card[]
+  cards: Card[],
+  type: HighlightType = "match"
 ): HighlightCard[] {
 
-  return cards.map((card) => ({
+  return cards.map(card => ({
     card,
-    priority: true,
+    type,
   }));
 
 }

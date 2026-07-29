@@ -1,6 +1,12 @@
 import { Card } from "@/types/card";
 import { Player } from "@/types/player";
-import { RedealReason, RedealResult } from "@/types/redeal";
+import { Room } from "@/types/room";
+import {
+  RedealReason,
+  RedealResult,
+} from "@/types/redeal";
+
+import { Seat } from "@/game/types/seat";
 import { countRanks } from "@/game/utils/rankCounter";
 
 // =========================
@@ -37,6 +43,7 @@ export function checkSeaFourKind(
     forceRedeal: false,
     reason: null,
   };
+
 }
 
 // =========================
@@ -69,6 +76,7 @@ export function checkPlayerFourKind(
     forceRedeal: false,
     reason: null,
   };
+
 }
 
 // =========================
@@ -98,7 +106,6 @@ export function checkDealerFourKind(
 
     if (count >= 4) {
 
-      // 手牌必須參與
       const hasInHand = player.hand.some(
         (card) => card.rank === rank
       );
@@ -110,7 +117,9 @@ export function checkDealerFourKind(
           reason: RedealReason.DealerFourKind,
         };
       }
+
     }
+
   }
 
   return {
@@ -118,10 +127,11 @@ export function checkDealerFourKind(
     forceRedeal: false,
     reason: null,
   };
+
 }
 
 // =========================
-// 全黑（下一步完成）
+// 全黑
 // =========================
 export function checkAllBlack(
   player: Player
@@ -129,8 +139,11 @@ export function checkAllBlack(
 
   for (const card of player.hand) {
 
-    // A 或 9 不能喊全黑
-    if (card.rank === "A" || card.rank === "9") {
+    // A 或 9 不算全黑
+    if (
+      card.rank === "A" ||
+      card.rank === "9"
+    ) {
       return {
         canRedeal: false,
         forceRedeal: false,
@@ -138,7 +151,7 @@ export function checkAllBlack(
       };
     }
 
-    // 只允許黑桃、梅花
+    // 必須全部都是黑色
     if (
       card.suit !== "spade" &&
       card.suit !== "club"
@@ -164,13 +177,19 @@ export function checkAllBlack(
 // 重發總檢查
 // =========================
 export function checkRedeal(
-  players: Player[],
-  seaCards: Card[],
-  bottomCard: Card | null
+  room: Room
 ): RedealResult {
 
+  const {
+    players,
+    seaCards,
+    bottomCard,
+  } = room;
+
   // 1. 海底四張相同（強制）
-  const seaResult = checkSeaFourKind(seaCards);
+  const seaResult = checkSeaFourKind(
+    seaCards
+  );
 
   if (seaResult.canRedeal) {
     return seaResult;
@@ -192,7 +211,7 @@ export function checkRedeal(
 
   // 3. 尾家四張相同
   const dealer = players.find(
-    (player) => player.seat === 4
+    (player) => player.seat === Seat.South
   );
 
   if (dealer) {
@@ -209,22 +228,22 @@ export function checkRedeal(
 
   }
 
-// 4. 全黑
+  // 4. 全黑
+  for (const player of players) {
 
-for (const player of players) {
+    const result = checkAllBlack(player);
 
-  const result = checkAllBlack(player);
+    if (result.canRedeal) {
+      return result;
+    }
 
-  if (result.canRedeal) {
-    return result;
   }
 
-}
-
-return {
-  canRedeal: false,
-  forceRedeal: false,
-  reason: null,
-};
+  // 不需要重發
+  return {
+    canRedeal: false,
+    forceRedeal: false,
+    reason: null,
+  };
 
 }

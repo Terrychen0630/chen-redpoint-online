@@ -3,11 +3,15 @@
 import { Card } from "@/types/card";
 import { Player } from "@/types/player";
 
+import { Seat } from "@/game/types/seat";
+
 import {
   checkSeaFourKind,
   checkPlayerFourKind,
   checkDealerFourKind,
 } from "@/game/rules/redealEngine";
+
+import { createCard } from "@/game/cardFactory";
 
 export default function TestRedealPage() {
 
@@ -16,10 +20,10 @@ export default function TestRedealPage() {
   // =========================
 
   const seaFourCards: Card[] = [
-    { suit: "club", rank: "5" },
-    { suit: "diamond", rank: "5" },
-    { suit: "heart", rank: "5" },
-    { suit: "spade", rank: "5" },
+    createCard("club", "5"),
+    createCard("diamond", "5"),
+    createCard("heart", "5"),
+    createCard("spade", "5"),
   ];
 
   const seaResult = checkSeaFourKind(seaFourCards);
@@ -31,29 +35,29 @@ export default function TestRedealPage() {
   const player: Player = {
     id: "1",
     name: "測試玩家",
-    seat: 1,
+    seat: Seat.West,
     connected: true,
     ready: true,
     isHost: false,
     score: 0,
 
     hand: [
-      { suit: "club", rank: "7" },
-      { suit: "diamond", rank: "7" },
-      { suit: "heart", rank: "7" },
-      { suit: "spade", rank: "K" },
-      { suit: "club", rank: "2" },
-      { suit: "diamond", rank: "9" },
+      createCard("club", "7"),
+      createCard("diamond", "7"),
+      createCard("heart", "7"),
+      createCard("spade", "K"),
+      createCard("club", "2"),
+      createCard("diamond", "9"),
     ],
 
     capturedCards: [],
   };
 
   const seaCards: Card[] = [
-    { suit: "spade", rank: "7" },
-    { suit: "club", rank: "5" },
-    { suit: "heart", rank: "J" },
-    { suit: "diamond", rank: "Q" },
+    createCard("spade", "7"),
+    createCard("club", "5"),
+    createCard("heart", "J"),
+    createCard("diamond", "Q"),
   ];
 
   const playerResult = checkPlayerFourKind(
@@ -68,35 +72,32 @@ export default function TestRedealPage() {
   const dealerPlayer: Player = {
     id: "2",
     name: "尾家",
-    seat: 4,
+    seat: Seat.South,
     connected: true,
     ready: true,
     isHost: false,
     score: 0,
 
     hand: [
-      { suit: "club", rank: "7" },
-      { suit: "spade", rank: "7" },
-      { suit: "heart", rank: "K" },
-      { suit: "diamond", rank: "Q" },
-      { suit: "club", rank: "2" },
-      { suit: "heart", rank: "9" },
+      createCard("club", "7"),
+      createCard("spade", "7"),
+      createCard("heart", "K"),
+      createCard("diamond", "Q"),
+      createCard("club", "2"),
+      createCard("heart", "9"),
     ],
 
     capturedCards: [],
   };
 
   const dealerSeaCards: Card[] = [
-    { suit: "diamond", rank: "7" },
-    { suit: "club", rank: "5" },
-    { suit: "heart", rank: "J" },
-    { suit: "spade", rank: "A" },
+    createCard("diamond", "7"),
+    createCard("club", "5"),
+    createCard("heart", "J"),
+    createCard("spade", "A"),
   ];
 
-  const bottomCard: Card = {
-    suit: "heart",
-    rank: "7",
-  };
+  const bottomCard: Card = createCard("heart", "7");
 
   const dealerResult = checkDealerFourKind(
     dealerPlayer,
@@ -110,8 +111,6 @@ export default function TestRedealPage() {
       <h1 className="mb-8 text-4xl font-bold">
         🧪 Redeal Engine Test
       </h1>
-
-      {/* Case 1 */}
 
       <div className="mb-8 rounded bg-gray-800 p-6">
 
@@ -136,8 +135,6 @@ export default function TestRedealPage() {
 
       </div>
 
-      {/* Case 2 */}
-
       <div className="mb-8 rounded bg-gray-800 p-6">
 
         <h2 className="mb-4 text-2xl font-bold">
@@ -160,8 +157,6 @@ export default function TestRedealPage() {
         </p>
 
       </div>
-
-      {/* Case 3 */}
 
       <div className="rounded bg-gray-800 p-6">
 

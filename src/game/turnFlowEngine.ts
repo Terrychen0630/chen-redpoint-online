@@ -3,7 +3,7 @@ import { Card } from "@/types/card";
 
 import { findPlayableSeaCards } from "./matchEngine";
 import { discardCard } from "./discardEngine";
-import { playTurn, PlayTurnResult } from "./playTurn";
+import { playTurn } from "./playTurn";
 
 export interface TurnFlowResult {
   room: Room;
@@ -41,10 +41,10 @@ export function turnFlow(
 
   }
 
-  // 已經選好海底牌
+  // 已經選好海牌
   if (seaCard) {
 
-    const result: PlayTurnResult = playTurn(
+    const result = playTurn(
       room,
       room.currentTurn,
       handCard,
@@ -55,13 +55,13 @@ export function turnFlow(
       room: result.room,
       waitingSeaCard: false,
       selectableCards: [],
-      flippedCard: result.flippedCard,
-      chainCards: result.chainCards,
+      flippedCard: result.data?.flippedCard ?? null,
+      chainCards: result.data?.chainCards ?? [],
     };
 
   }
 
-  // 等玩家選海底牌
+  // 等玩家選海牌
   return {
     room,
     waitingSeaCard: true,

@@ -29,9 +29,10 @@ export function createDeck(): Card[] {
   for (const suit of suits) {
     for (const rank of ranks) {
       deck.push({
-        suit,
-        rank,
-      });
+  id: `${suit}-${rank}`,
+  suit,
+  rank,
+});
     }
   }
 

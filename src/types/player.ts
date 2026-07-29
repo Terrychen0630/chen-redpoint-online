@@ -1,21 +1,19 @@
 import { Card } from "./card";
+import { Seat } from "@/game/types/seat";
 
 export interface Player {
   id: string;
-
   name: string;
 
-  seat: number;
+  seat: Seat;
 
   connected: boolean;
-
   ready: boolean;
-
   isHost: boolean;
 
   score: number;
 
   hand: Card[];
 
-  matchedCards: Card[];
+  capturedCards: Card[];
 }

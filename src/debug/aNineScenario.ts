@@ -1,4 +1,5 @@
 import { Room } from "@/types/room";
+import { createCard } from "@/game/cardFactory";
 
 export function applyANineScenario(room: Room): Room {
 
@@ -11,23 +12,14 @@ export function applyANineScenario(room: Room): Room {
 
   // Player1 手牌：♥9
   updated.players[0].hand = [
-    {
-      suit: "heart",
-      rank: "9",
-    },
+    createCard("heart", "9"),
   ];
 
   // 海底
-updated.seaCards = [
-  {
-    suit: "club",
-    rank: "A",
-  },
-  {
-    suit: "heart",
-    rank: "A",
-  },
-];
+  updated.seaCards = [
+    createCard("club", "A"),
+    createCard("heart", "A"),
+  ];
 
   updated.currentTurn = 1;
 

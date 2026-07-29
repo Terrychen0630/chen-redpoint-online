@@ -1,5 +1,6 @@
 import { Room } from "@/types/room";
 import { Player } from "@/types/player";
+import { Seat } from "@/game/types/seat";
 
 export function createEmptyRoom(
   roomCode: string,
@@ -10,44 +11,59 @@ export function createEmptyRoom(
     {
       id: crypto.randomUUID(),
       name: hostName,
-      seat: 1,
+      seat: Seat.East,
+
       connected: true,
       ready: false,
       isHost: true,
+
       score: 0,
+
       hand: [],
       capturedCards: [],
     },
+
     {
       id: "",
       name: "",
-      seat: 2,
+      seat: Seat.South,
+
       connected: false,
       ready: false,
       isHost: false,
+
       score: 0,
+
       hand: [],
       capturedCards: [],
     },
+
     {
       id: "",
       name: "",
-      seat: 3,
+      seat: Seat.West,
+
       connected: false,
       ready: false,
       isHost: false,
+
       score: 0,
+
       hand: [],
       capturedCards: [],
     },
+
     {
       id: "",
       name: "",
-      seat: 4,
+      seat: Seat.North,
+
       connected: false,
       ready: false,
       isHost: false,
+
       score: 0,
+
       hand: [],
       capturedCards: [],
     },
@@ -58,11 +74,14 @@ export function createEmptyRoom(
 
     status: "waiting",
 
-    hostSeat: 1,
+    // 房主所在位置
+    hostSeat: Seat.East,
 
-    dealerSeat: 1,
+    // 等開始遊戲時再決定頭家
+    dealerSeat: Seat.East,
 
-    currentTurn: 1,
+    // 等開始遊戲時再開始輪牌
+    currentTurn: Seat.East,
 
     createdAt: Date.now(),
 
