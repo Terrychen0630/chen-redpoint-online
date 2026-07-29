@@ -6,6 +6,7 @@ import { playTurn } from "@/game/playTurn";
 import { EngineResult } from "@/game/types/EngineResult";
 import { PlayData } from "@/game/types/PlayData";
 import { confirmChainCapture } from "@/game/chainCaptureEngine";
+import { discardCard } from "@/game/discardEngine";
 
 export class CRPEController {
   private room: Room;
@@ -22,11 +23,11 @@ export class CRPEController {
     this.room = room;
   }
 
-  play(
+   play(
     handCard: Card,
     seaCard: Card
   ): EngineResult<PlayData> {
-    
+
     const result = playTurn(
       this.room,
       this.room.currentTurn,
@@ -38,17 +39,30 @@ export class CRPEController {
 
     return result;
   }
+
   confirmChain(
-  flippedCard: Card,
-  seaCard: Card
-): void {
+    flippedCard: Card,
+    seaCard: Card
+  ): void {
 
-  this.room = confirmChainCapture(
-    this.room,
-    this.room.currentTurn,
-    flippedCard,
-    seaCard
-  );
+    this.room = confirmChainCapture(
+      this.room,
+      this.room.currentTurn,
+      flippedCard,
+      seaCard
+    );
 
-}
+  }
+
+  discard(
+    handCard: Card
+  ): void {
+
+    this.room = discardCard(
+      this.room,
+      this.room.currentTurn,
+      handCard
+    );
+
+  }
 }
