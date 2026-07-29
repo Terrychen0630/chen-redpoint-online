@@ -118,14 +118,14 @@ const waitingChain =
 
 if (waitingChain) {
 
-  const newRoom = confirmChainCapture(
-    room,
-    room.currentTurn,
+const controller = new CRPEController(room);
+
+controller.confirmChain(
     selectedCard,
     seaCard
-  );
+);
 
-  setRoom(newRoom);
+setRoom(controller.getRoom());
   setSelectedCard(null);
   setSelectableCards([]);
 
