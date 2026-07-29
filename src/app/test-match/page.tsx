@@ -1,7 +1,7 @@
 "use client";
 
 import { createCard } from "@/game/cardFactory";
-import { findMatches } from "@/game/matchEngine";
+import { findMatches } from "@/game/engines/matchEngine";
 
 export default function TestMatchPage() {
   const handCard = createCard("club", "2");

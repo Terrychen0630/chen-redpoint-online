@@ -3,7 +3,7 @@ import { Card } from "@/types/card";
 
 import { Seat } from "@/game/types/seat";
 
-import { findPlayableSeaCards } from "./matchEngine";
+import { findPlayableSeaCards } from "./engines/matchEngine";
 import { captureCards } from "./engines/captureEngine";
 
 export function resolveFlip(

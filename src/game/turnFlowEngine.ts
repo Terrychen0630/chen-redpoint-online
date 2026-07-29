@@ -1,7 +1,7 @@
 import { Room } from "@/types/room";
 import { Card } from "@/types/card";
 
-import { findPlayableSeaCards } from "./matchEngine";
+import { findPlayableSeaCards } from "./engines/matchEngine";
 import { discardCard } from "./engines/discardEngine";
 import { playTurn } from "./engines/playTurn";
 

@@ -5,7 +5,7 @@ import { Seat } from "@/game/types/seat";
 import { EngineResult } from "@/game/types/EngineResult";
 import { PlayData } from "@/game/types/PlayData";
 
-import { canMatch } from "../matchEngine";
+import { canMatch } from "./matchEngine";
 import { captureCards } from "./captureEngine";
 import { flipCard } from "./flipEngine";
 import { findChainMatches } from "../chainEngine";

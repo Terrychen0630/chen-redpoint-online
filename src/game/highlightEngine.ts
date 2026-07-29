@@ -1,5 +1,5 @@
 import { Card } from "@/types/card";
-import { findPlayableSeaCards } from "./matchEngine";
+import { findPlayableSeaCards } from "./engines/matchEngine";
 
 export type HighlightType =
   | "match"

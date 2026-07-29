@@ -1,5 +1,5 @@
 import { Card } from "@/types/card";
-import { findMatches } from "./matchEngine";
+import { findMatches } from "./engines/matchEngine";
 
 /**
  * 判斷翻出的牌是否可以繼續吃
