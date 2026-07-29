@@ -3,7 +3,7 @@ import { Seat } from "@/game/types/seat";
 
 import { flipDeckCard } from "@/game/deck/flipDeckCard";
 import { findMatchingSeaCard } from "@/game/utils/findMatchingSeaCard";
-import { captureCards } from "@/game/captureEngine";
+import { captureCards } from "@/game/engines/captureEngine";
 
 export interface FlipCaptureResult {
   room: Room;

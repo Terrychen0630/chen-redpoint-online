@@ -4,7 +4,7 @@ import { Card } from "@/types/card";
 import { Seat } from "@/game/types/seat";
 
 import { findPlayableSeaCards } from "./matchEngine";
-import { captureCards } from "./captureEngine";
+import { captureCards } from "./engines/captureEngine";
 
 export function resolveFlip(
   room: Room,

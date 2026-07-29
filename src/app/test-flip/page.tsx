@@ -1,6 +1,6 @@
 "use client";
 
-import { flipCard } from "@/game/flipEngine";
+import { flipCard } from "@/game/engines/flipEngine";
 import { createCard } from "@/game/cardFactory";
 import { Seat } from "@/game/types/seat";
 

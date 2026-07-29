@@ -1,6 +1,6 @@
 "use client";
 
-import { captureCards } from "@/game/captureEngine";
+import { captureCards } from "@/game/engines/captureEngine";
 import { createCard } from "@/game/cardFactory";
 import { Seat } from "@/game/types/seat";
 
