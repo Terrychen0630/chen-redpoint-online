@@ -20,7 +20,7 @@ import SeaCards from "@/components/SeaCards";
 import { discardTurn } from "@/game/discardTurnEngine";
 import ScorePanel from "@/components/ScorePanel";
 import { ScoreResult, calculatePlayerScore } from "@/game/scoreEngine";
-import { confirmChainCapture } from "@/game/chainCaptureEngine";
+import { confirmChainCapture } from "@/game/engines/chainCaptureEngine";
 import { isGameOver } from "@/game/gameOverEngine";
 import { CRPEController } from "@/game/controller/CRPEController";
 

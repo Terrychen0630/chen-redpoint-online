@@ -5,7 +5,7 @@ import { playTurn } from "@/game/engines/playTurn";
 
 import { EngineResult } from "@/game/types/EngineResult";
 import { PlayData } from "@/game/types/PlayData";
-import { confirmChainCapture } from "@/game/chainCaptureEngine";
+import { confirmChainCapture } from "@/game/engines/chainCaptureEngine";
 import { discardCard } from "@/game/engines/discardEngine";
 
 export class CRPEController {
